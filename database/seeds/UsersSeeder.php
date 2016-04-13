@@ -13,7 +13,7 @@ class UsersSeeder extends Seeder
     public function run()
     {
         // create roles
-        Sentinel::getRoleRepository()->createModel()->create([
+       /* Sentinel::getRoleRepository()->createModel()->create([
             'name' => 'SuperAdmin',
             'slug' => 'superadmin',
             'permissions' => []
@@ -24,7 +24,7 @@ class UsersSeeder extends Seeder
             'slug' => 'admin',
             'permissions' => []
         ]);
-
+*/
         $superAdminRole = Sentinel::findRoleByName('SuperAdmin');
         if (empty($superAdminRole)) {
             echo "SuperAdmin role not found.";
@@ -37,16 +37,16 @@ class UsersSeeder extends Seeder
             return;
         }
 
-        $superAdmin = Sentinel::register([
+        $superAdmin = Sentinel::registerAndActivate([
             'username'          => 'SuperAdmin',
             "email"             => 'anthonyumpad+blogsuperadmin@gmail.com',
-            "password"          => "blogsuperadmin",
+            "password"          => "password",
         ]);
 
-        $admin = Sentinel::register([
+        $admin = Sentinel::registerAndActivate([
             'username'          => 'anthonyBlogAdmin',
             "email"             => 'anthonyumpad+blogAdmin@gmail.com',
-            "password"          => "blogadmin",
+            "password"          => "password",
         ]);
 
         $superAdmin->roles()->attach($superAdminRole);

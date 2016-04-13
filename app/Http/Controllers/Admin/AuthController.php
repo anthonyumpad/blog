@@ -11,7 +11,8 @@ namespace App\Http\Controllers\Admin;
 use App\Models\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Cartalyst\Sentinel\Native\Facades\Sentinel;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
+use Illuminate\Support\Facades\Redirect;
 
 class AuthController extends Controller
 {
@@ -32,8 +33,13 @@ class AuthController extends Controller
             'password' => 'required',
         ]);
 
+        $auth = Sentinel::authenticateAndRemember($request->all());
+        if (! $auth) {
+            return Redirect::back()
+                ->with(['email' => $request->get('email')])
+                ->withErrors(['msq' => 'Invalid email/password!']);
+        }
 
-        $auth = Sentinel::authenticate($request->all());
-
+        return Redirect::route('admin.dashboard');
     }
 }

@@ -17,13 +17,9 @@
         <ul class="sidebar-menu">
             <li class="header">General</li>
             <!-- Optionally, you can add icons to the links -->
-            <li id="users-menu"><a href="/admin/users/list"><i class="fa fa-users"></i><span>Users</span></a></li>
-            <li id="gateways-menu"><a href="/admin/gateways/list"><i class="fa fa-money"></i><span>Gateways</span></a></li>
-            <li id="sites-menu"><a href="/admin/sites/list"><i class="fa fa-sitemap"></i><span>Sites</span></a></li>
-            <li id="enums-menu"><a href="/admin/enums/list"><i class="fa fa-list"></i><span>Enums</span></a></li>
-            <li id="errors-menu"><a href="/admin/errors/list"><i class="fa fa-warning"></i><span>Errors</span></a></li>
-            <li id="gw-errors-menu"><a href="/admin/errorgws/list"><i class="fa fa-exclamation"></i><span>Gateway Errors</span></a></li>
-            <li id="logs-menu"><a href="/admin/logs/list"><i class="fa fa-book"></i><span>Logs</span></a></li>
+            <li id="dashboard-menu"><a href="/admin/dashboard"><i class="fa fa-dashboard"></i><span>Dashboard</span></a></li>
+            <li id="categories-menu"><a href="/admin/category/list"><i class="fa fa-cubes"></i><span>Categories</span></a></li>
+            <li id="posts-menu"><a href="/admin/post/list"><i class="fa fa-file-text-o"></i><span>Posts</span></a></li>
         </ul><!-- /.sidebar-menu -->
     </section>
     <!-- /.sidebar -->

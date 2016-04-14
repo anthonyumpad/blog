@@ -20,16 +20,22 @@ scratch. This page gets rid of all links and provides the needed markup only.
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect.
     -->
+	<link href="{{ asset('/css/blog-admin.css') }}" rel="stylesheet">
 	<link href="{{ asset("/bower_components/admin-lte/dist/css/skins/_all-skins.min.css")}}" rel="stylesheet" type="text/css" />
 	<!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
 	<!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
 	<!--[if lt IE 9]>
 	<script src="//oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
-	<script src="//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
-	<!-- jQuery 2.1.3 -->
+	<script src="//oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>	<!-- jQuery 2.1.3 -->
 	<script src="{{ asset ("/bower_components/admin-lte/plugins/jQuery/jQuery-2.1.4.min.js") }}"></script>
-	<![endif]-->
-
+	<!-- blog specific js stuff -->
+	<script src="{{ asset ("/js/blog-admin.js") }}" type="text/javascript"></script>
+	<!--[endif]-->
+	<!-- Ladda Themeless -->
+	<link href="{{ asset("/bower_components/ladda/dist/ladda-themeless.min.css") }}" rel="stylesheet">
+	<script src="{{ asset("/bower_components/ladda/js/spin.js") }}"></script>
+	<script src="{{ asset("/bower_components/ladda/js/ladda.js") }}"></script>
+	<link href="{{ asset('/css/blog-admin.css') }}" rel="stylesheet">
     @yield('head')
 </head>
 <body class="skin-blue sidebar-mini layout-boxed">
@@ -106,6 +112,9 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </div><!-- ./wrapper -->
 
 <!-- REQUIRED JS SCRIPTS -->
+
+<!-- AdminLTE App -->
+<script src="{{ asset ("/bower_components/admin-lte/dist/js/app.js") }}" type="text/javascript"></script>
 <!-- Bootstrap 3.3.2 JS -->
 <script src="{{ asset ("/bower_components/admin-lte/bootstrap/js/bootstrap.min.js") }}" type="text/javascript"></script>
 <!-- Slimscroll -->
@@ -164,12 +173,6 @@ scratch. This page gets rid of all links and provides the needed markup only.
 		},
 	};
 </script>
-<!-- AdminLTE App -->
-<script src="{{ asset ("/bower_components/admin-lte/dist/js/app.min.js") }}" type="text/javascript"></script>
-<!-- Optionally, you can add Slimscroll and FastClick plugins.
-      Both of these plugins are recommended to enhance the
-      user experience -->
-
 @yield('footer')
 
 </body>

@@ -7,6 +7,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Controllers\Controller;
 use Cartalyst\Sentinel\Sentinel;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Http\Request;
@@ -19,16 +20,8 @@ use View;
  *
  * This handles all Dashboard requests
  */
-class DashboardController extends BaseController
+class DashboardController extends Controller
 {
-
-    /**
-     * Class Constructor
-     */
-    public function __construct()
-    {
-
-    }
 
     /**
      * index

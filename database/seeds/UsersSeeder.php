@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
+use Webpatser\Uuid\Uuid;
 
 class UsersSeeder extends Seeder
 {
@@ -39,14 +40,19 @@ class UsersSeeder extends Seeder
 
         $superAdmin = Sentinel::registerAndActivate([
             'username'          => 'SuperAdmin',
+            "uid"               => Uuid::generate(4);
             "email"             => 'anthonyumpad+blogsuperadmin@gmail.com',
             "password"          => "password",
+            "first_name"        => 'Super',
+            "last_name"         => 'Admin'
         ]);
 
         $admin = Sentinel::registerAndActivate([
             'username'          => 'anthonyBlogAdmin',
             "email"             => 'anthonyumpad+blogAdmin@gmail.com',
             "password"          => "password",
+            "first_name"        => 'Anthony',
+            "last_name"         => 'Blogger'
         ]);
 
         $superAdmin->roles()->attach($superAdminRole);

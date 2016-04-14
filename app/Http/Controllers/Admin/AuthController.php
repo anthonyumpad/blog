@@ -36,10 +36,27 @@ class AuthController extends Controller
         $auth = Sentinel::authenticateAndRemember($request->all());
         if (! $auth) {
             return Redirect::back()
-                ->with(['email' => $request->get('email')])
-                ->withErrors(['msq' => 'Invalid email/password!']);
+                ->withInput($request->except('password'))
+                ->with('flash_message', [
+                    'status'  => 'error',
+                    'message' => 'Invalid email/password!'
+                ]);
         }
 
         return Redirect::route('admin.dashboard');
+    }
+
+    /**
+     * logout
+     *
+     * Logs out the current admin user and destroys all
+     * Session keys.
+     *
+     * @return Redirect
+     */
+    public function logout()
+    {
+        Sentinel::logout(Sentinel::getUser());
+        return Redirect::to('/');
     }
 }

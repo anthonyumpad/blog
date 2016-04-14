@@ -16,6 +16,7 @@
           page. However, you can choose any other skin. Make sure you
           apply the skin class to the body tag so the changes take effect.
     -->
+    <link href="{{ asset('/css/blog-admin.css') }}" rel="stylesheet">
     <link href="{{ asset("/bower_components/admin-lte/dist/css/skins/skin-blue.min.css")}}" rel="stylesheet" type="text/css" />
     <!-- iCheck -->
     <link href="{{ asset("/bower_components/admin-lte/plugins/iCheck/square/blue.css")}}" rel="stylesheet" type="text/css" />
@@ -31,14 +32,20 @@
 
     <div class="login-box-body">
         <p class="login-box-msg">Sign in to Blog Dashboard</p>
-
-        @if (count($errors) > 0)
-            <div class="centered text-center">
-                @foreach ($errors->all() as $error)
-                    <p class="text-red">{{ $error }}</p>
-                @endforeach
+        @if(! empty(session('flash_message')))
+            <div class="alert alert-{{ session('flash_message')['status'] }}">
+                <div class="layoutContainer">
+                    <div class="container">
+                        @if(isset(session('flash_message')['code']))
+                            {{ session('flash_message')['code'] }}
+                        @else
+                            {{ session('flash_message')['message'] }}
+                        @endif
+                        {{-- <b>{{ session('flash_message')['message']}}</b> {{session('flash_message')['error_fields']}} --}}</div>
+                </div>
             </div>
         @endif
+
 
         @if (Session::has('success-message'))
             <div class="centered text-center">
@@ -48,7 +55,7 @@
         <form action="/admin/authenticate" method="post">
             {{ csrf_field() }}
             <div class="form-group has-feedback">
-                <input type="email" name="email" class="form-control" placeholder="Email" value="@if(isset($email)){{ $email }}@endif" required>
+                <input type="email" name="email" class="form-control" placeholder="Email" value="{{ Input::old('email') }}" required>
                 <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
             </div>
             <div class="form-group has-feedback">

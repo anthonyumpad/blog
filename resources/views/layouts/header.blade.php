@@ -2,12 +2,12 @@
 <header class="main-header">
     <!-- Logo -->
     <a href="/admin/dashboard" class="logo">
-        <span class="logo-mini">
+        <!--span class="logo-mini">
             <img src="/img/logo2.svg"  class="dashboard-logo-mini"/>
         </span>
         <span class="logo-lg">
             <img src="/img/logo2.svg" width="200px" alt="" class="dashboard-logo"/>
-        </span>
+        </span-->
     </a>
 
     <!-- Header Navbar -->
@@ -42,7 +42,7 @@
                         <li class="user-header">
                             <img src="{{  asset("img/default_user.png") }}" class="img-circle" alt="User Image" />
                             <p>
-                               {{$user->email}}
+                               {{$user->username}}
                             </p>
                         </li>
                         <!-- Menu Footer-->
@@ -55,9 +55,6 @@
                             </div>
                         </li>
                     </ul>
-                </li>
-                <li>
-                    <a href="#" data-toggle="control-sidebar"><i class="fa fa-gears"></i></a>
                 </li>
             </ul>
         </div>
@@ -108,10 +105,6 @@
         </div><!-- /.modal-dialog -->
     </form>
 </div><!-- /.modal -->
-<script src="{{ asset ("/bower_components/admin-lte/plugins/jQueryUI/jquery-ui.min.js") }}"></script>
-<script src="{{ asset("/bower_components/ladda/js/spin.js") }}"></script>
-<script src="{{ asset("/bower_components/ladda/js/ladda.js") }}"></script>
-
 <script>
     var changePassword = function(){
         $('#changePasswordModal').modal('show');

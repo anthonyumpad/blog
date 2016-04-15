@@ -8,6 +8,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use Cartalyst\Sentinel\Laravel\Facades\Sentinel;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Redirect;
@@ -74,7 +75,9 @@ class PostController extends Controller
      */
     public function createAction()
     {
-        $categories = Category::get();
+        $user = Sentinel::getUser();
+        $categories = Category::where('user_id', $user->id)
+                    ->get();
         return View::make('admin.post.create-update')
             ->with([
                 'action'     => 'Create',
@@ -146,7 +149,9 @@ class PostController extends Controller
      */
     public function editAction($postId)
     {
-        $categories = Category::get();
+        $user = Sentinel::getUser();
+        $categories = Category::where('user_id', $user->id)
+            ->get();
 
         if (empty($postId)) {
             return View::make('admin.post.create-update')

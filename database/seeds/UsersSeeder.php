@@ -14,45 +14,41 @@ class UsersSeeder extends Seeder
     public function run()
     {
         // create roles
-       /* Sentinel::getRoleRepository()->createModel()->create([
-            'name' => 'SuperAdmin',
-            'slug' => 'superadmin',
-            'permissions' => []
-        ]);
-
-        Sentinel::getRoleRepository()->createModel()->create([
-            'name' => 'Admin',
-            'slug' => 'admin',
-            'permissions' => []
-        ]);
-*/
         $superAdminRole = Sentinel::findRoleByName('SuperAdmin');
         if (empty($superAdminRole)) {
-            echo "SuperAdmin role not found.";
-            return;
+           $superAdminRole = Sentinel::getRoleRepository()->createModel()->create([
+               'name' => 'SuperAdmin',
+               'slug' => 'superadmin',
+               'permissions' => []
+           ]);
         }
 
         $adminRole = Sentinel::findRoleByName('Admin');
         if (empty($adminRole)) {
-            echo "admin role not found.";
-            return;
+            $adminRole = Sentinel::getRoleRepository()->createModel()->create([
+                'name' => 'Admin',
+                'slug' => 'admin',
+                'permissions' => []
+            ]);
+
         }
 
         $superAdmin = Sentinel::registerAndActivate([
             'username'          => 'SuperAdmin',
-            "uid"               => Uuid::generate(4);
+            "uid"               => Uuid::generate(4),
             "email"             => 'anthonyumpad+blogsuperadmin@gmail.com',
             "password"          => "password",
             "first_name"        => 'Super',
-            "last_name"         => 'Admin'
+            "last_name"         => 'Admin',
         ]);
 
         $admin = Sentinel::registerAndActivate([
             'username'          => 'anthonyBlogAdmin',
+            "uid"               => Uuid::generate(4),
             "email"             => 'anthonyumpad+blogAdmin@gmail.com',
             "password"          => "password",
             "first_name"        => 'Anthony',
-            "last_name"         => 'Blogger'
+            "last_name"         => 'Blogger',
         ]);
 
         $superAdmin->roles()->attach($superAdminRole);

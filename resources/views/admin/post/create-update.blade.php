@@ -91,7 +91,7 @@
                         </div>
                         <div class="form-group">
                             <label for="description">Description</label>
-                            <textarea class="form-control" id="description" name="description" placeholder="Description">@if(! empty($blog)){{ $blog->description }}@endif</textarea>
+                            <textarea class="form-control ckeditor" id="description" rows=10 name="description" placeholder="Description">@if(! empty($blog)){{ $blog->description }}@endif</textarea>
                         </div>
                         <div class="form-group">
                             <label for="tags">Tags</label>
@@ -108,7 +108,7 @@
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="content">Content</label>
-                                <textarea id="content" name="content" rows="10" cols="120" style="visibility: hidden; display: none;">@if(! empty($blog)){{ $blog->content }}@endif</textarea>
+                                <textarea id="content" class="ckeditor" name="content" rows="50" cols="120" style="visibility: hidden; display: none;">@if(! empty($blog)){{ $blog->content }}@endif</textarea>
                             </div>
                         </div>
                         <!-- /.box-body -->
@@ -129,11 +129,27 @@
         <script>
         setSideBarActive('posts-menu');
         $('.overlay').hide();
+
+        $(function() {
+            jQuery.fn.cke_resize = function() {
+                return this.each(function() {
+                    var $this = $(this);
+                    var rows = $this.attr('rows');
+                    var height = rows * 20;
+                    $this.next("div.cke").find(".cke_contents").css("height", height);
+                });
+            };
+        });
+
         $(function () {
             // Replace the <textarea id="editor1"> with a CKEditor
             // instance, using default configuration.
             CKEDITOR.replace('content');
             CKEDITOR.replace('description');
+        });
+
+        CKEDITOR.on( 'instanceReady', function(){
+            $("textarea.ckeditor").cke_resize();
         });
 
         var savePost = function() {
@@ -208,7 +224,12 @@
         };
 
         var preview = function() {
-           var url = "/blog/{{ $user->username }}/post/{{ $blog->id }}?preview=1";
+            @if( ! empty($blog))
+                 var url = "/blog/{{ $user->username }}/post/{{ $blog->id }}?preview=1";
+            @else
+                 var  url = "/blog/{{ $user->username }}";
+            @endif
+
             var win = window.open(url, '_blank');
             if(win){
                 //Browser has allowed it to be opened

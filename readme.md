@@ -1,27 +1,33 @@
-# Laravel PHP Framework
+# Blog
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/d/total.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+This is a blog application that is using 2 databases, MySQL and MongoDB. This has two different interfaces -- the admin
+and the public interface. The admin interface allows the blog admin to add, edit, delete, preview, publish and unpublish his post.
+It also allows the admin to add different blog categories. The public interface is the blog page for public viewing of the admin's posts.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+## Pre-requisites
 
-Laravel is accessible, yet powerful, providing tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+Please make sure you have installed the following:
 
-## Official Documentation
+- PHP 5.5.9 and above
+- MySQL 5.6 and above
+- Memcached (or change the session to use file)
+- MongoDB 3.2
+- Bower
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+## Installation
 
-## Contributing
+1. Pull this code to your local setup.
+2. Setup nginx, there's an included nginx config with self-signed certs at ./deploy/root/local
+3. Run `composer install`
+4. Run `bower install`
+5. Setup the MySQL db, add your preferred database name and update the .env file.
+6. Run the migrations.
+7. Run the seeders. (You can add or remove sandbox account by editing the seeder file)
+8. Done.
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
+## Main Routes
 
-## Security Vulnerabilities
+- The home url is the admin login page e.g. _www.testblog.local_.
+- The public url has is the  home url + the _{username}_ url segment.
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell at taylor@laravel.com. All security vulnerabilities will be promptly addressed.
 
-## License
-
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT).

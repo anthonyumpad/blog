@@ -20,7 +20,7 @@
                     @endif
                 </p>
                 <p>{{ $post->description }}</p>
-                <p>{{ $post->content }} </p>
+                <p>{!!  $post->content !!} </p>
         </div>
         @include('/blog/layouts/rightnav')
     </div>

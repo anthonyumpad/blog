@@ -43,6 +43,8 @@ class CategoryRepository
             $categories->orderBy('name', 'asc');
         } elseif($sortBy == 'sortByNameDesc') {
             $categories->orderBy('name', 'desc');
+        } elseif($sortBy == 'sortByType') {
+            $categories->orderBy('type');
         }
 
         $categories = $categories->paginate((int) $limit);
@@ -63,7 +65,7 @@ class CategoryRepository
         $data       = $request->except(['_url', '_token', 'uid']);
         $uid        = $request->get('uid');
         $categoryId = (! empty($data['category-id'])) ? $data['category-id'] : null;
-        $user   = User::where('uid', $uid)->first();
+        $user       = User::where('uid', $uid)->first();
 
         if (empty($user)) {
             throw new \Exception('User not found.');
@@ -80,8 +82,9 @@ class CategoryRepository
         }
 
         //update stuff here
-        $category->user_id     = $user->id;
-        $category->name        = (isset($data['name']))       ? $data['name']       : '';
+        $category->user_id  = $user->id;
+        $category->name     = (isset($data['name']))   ? $data['name']  : '';
+        $category->type     = (isset($data['type']))   ? $data['type']  : 'main';
 
         try {
             $category->save();

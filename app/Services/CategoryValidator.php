@@ -21,6 +21,7 @@ class CategoryValidator extends BaseValidator
     public $rules = [
         'uid'  => ['required'],
         'name' => ['required'],
+        'type' => ['required']
     ];
 
     public $custom_errors = [

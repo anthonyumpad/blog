@@ -47,6 +47,7 @@
                                     <select class="form-control" name="sortBy" id="sortBy"  onchange="changeParams()">
                                         <option value="sortByNameAsc" selected>Alphabetical</option>
                                         <option value="sortByNameDesc">Reverse</option>
+                                        <option value="sortByType">Type</option>
                                     </select>
                                     </label>
                                 </div>
@@ -62,6 +63,7 @@
                             <thead>
                             <tr>
                                 <th>Name</th>
+                                <th>Type</th>
                                 <th>Created Date</th>
                             </tr>
                             </thead>
@@ -69,6 +71,7 @@
                             @foreach($categories as $category)
                                 <tr>
                                     <td><a href="/admin/category/edit/{{ $category->id }}">{{ $category->name }}</a></td>
+                                    <td>{{ $category->type }}</td>
                                     <td class="date">{{ $category->created_at }}</td>
                                 </tr>
                             @endforeach

@@ -33,6 +33,13 @@
                                 <label for="title">Name</label>
                                 <input type="text" class="form-control" id="name" name="name" placeholder="Category Name" @if(! empty($category))value="{{ $category->name }}"@endif>
                             </div>
+                            <div class="form-group">
+                                <label for="title">Type</label>
+                                <select name="type" class="form-control">
+                                    <option value="main">Main</option>
+                                    <option value="post" selected>Post</option>
+                                </select>
+                            </div>
                         </div>
 
                         <div class="overlay">

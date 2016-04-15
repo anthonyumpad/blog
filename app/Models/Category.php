@@ -14,7 +14,7 @@ class Category extends Eloquent
 
     protected $connection = 'mongodb';
     protected $collection = 'categories';
-    protected $fillable   = ['name'];
+    protected $fillable   = ['name', 'type'];
     protected $dates      = ['created_at', 'updated_at', 'deleted_at'];
 
     /**

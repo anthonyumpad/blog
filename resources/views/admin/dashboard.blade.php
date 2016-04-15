@@ -24,7 +24,7 @@
     </section>
     <section class="content">
         <div class="row">
-            <div class="col-md-3 col-sm-6 col-xs-12">
+            <div class="col-md-12 col-sm-6 col-xs-12">
                 <div class="info-box">
                     <span class="info-box-icon bg-navy"><i class="fa fa-cubes"></i></span>
 
@@ -70,6 +70,19 @@
                     <div class="info-box-content">
                         <span class="info-box-text">Published Posts</span>
                         <span class="info-box-number">{{ $publishedPostCount }}</span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <!-- /.info-box -->
+            </div>
+            <!-- /.col -->
+            <div class="col-md-3 col-sm-6 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-red"><i class="fa fa-file-text-o"></i></span>
+
+                    <div class="info-box-content">
+                        <span class="info-box-text">Delete Posts</span>
+                        <span class="info-box-number">{{ $deletePostCount }}</span>
                     </div>
                     <!-- /.info-box-content -->
                 </div>

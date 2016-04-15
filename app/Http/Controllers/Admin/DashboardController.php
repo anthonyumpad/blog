@@ -39,12 +39,14 @@ class DashboardController extends Controller
         $postCount          = Post::where('user_id', $user->id)->count();
         $draftPostCount     = Post::where('user_id', $user->id)->where('status', Post::STATUS_DRAFT)->count();
         $publishedPostCount = Post::where('user_id', $user->id)->where('status', Post::STATUS_PUBLISHED)->count();
+        $deletedPostCount   = Post::where('user_id', $user->id)->onlyTrashed()->count();
 
         return Response::view('admin.dashboard',[
-            'categoryCount'      => $categoryCount,
+            'categoryCount'          => $categoryCount,
                 'postCount'          => $postCount,
                 'draftPostCount'     => $draftPostCount,
-                'publishedPostCount' => $publishedPostCount
+                'publishedPostCount' => $publishedPostCount,
+                'deletePostCount'    => $deletedPostCount
             ]);
 
     }

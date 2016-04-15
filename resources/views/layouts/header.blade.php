@@ -85,6 +85,7 @@
                     @endif
                     <div class="form-group">
                         <label for="currentPassword">Current Password</label>
+                        <input type="hidden" name="_token" value="{{ csrf_token() }}"/>
                         <input type="password" class="form-control" id="accountId" name="currentPassword" placeholder="Enter Current Password" required>
                     </div>
                     <div class="form-group">

@@ -47,6 +47,50 @@ class AuthController extends Controller
     }
 
     /**
+     * change Password
+     *
+     * Update the user password
+     *
+     * @param Request $request
+     * @return mixed
+     * @throws \Exception
+     */
+    public function changePassword(Request $request)
+    {
+        $params = $request->all();
+        $user = Sentinel::getUser();
+        $credentials = [
+            'email'     => $user->email,
+            'password'  => (!empty($params['currentPassword'])) ? $params['currentPassword'] : ''
+        ];
+        $re_auth_user = Sentinel::validateCredentials($user, $credentials);
+
+        //check if current password is correct
+        if (! $re_auth_user) {
+            return Redirect::back()->with([
+                'passwordErrors'   => 'Current password is incorrect'
+            ]);
+        }
+
+        //check if new passwords match
+        $new_pass     = (!empty($params['newPassword']))    ? $params['newPassword'] : '';
+        $re_new_pass  = (!empty($params['re-newPassword'])) ? $params['re-newPassword'] : '';
+        if ($new_pass != $re_new_pass) {
+            return Redirect::back()->with([
+                'passwordErrors'   => 'New passwords does not match'
+            ]);
+        }
+
+        $new_credentials = ['password' => $params['newPassword']];
+        $user = Sentinel::update($user, $new_credentials);
+
+        return Redirect::route('admin.login')
+            ->with([
+                'success-message' => 'Password successfully changed. Please login with your new password.'
+            ]);
+    }
+
+    /**
      * logout
      *
      * Logs out the current admin user and destroys all

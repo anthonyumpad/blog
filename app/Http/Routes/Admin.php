@@ -1,12 +1,11 @@
 <?php
 Route::group(['middlewareGroups' => ['web']], function () {
-    Route::get('/', function () {
-        return view('index');
-    });
+    Route::get('/', ['as' => 'admin.login', function () {return view('index');}]);
 
     Route::group(['prefix' => 'admin'], function () {
-        Route::post('authenticate',    ['as' => 'admin.authenticate', 'uses' => 'Admin\AuthController@authenticate']);
-        Route::get('logout',           ['as' => 'admin.logout',       'uses' => 'Admin\AuthController@logout']);
+        Route::post('authenticate',    ['as' => 'admin.authenticate',   'uses' => 'Admin\AuthController@authenticate']);
+        Route::get('logout',           ['as' => 'admin.logout',         'uses' => 'Admin\AuthController@logout']);
+        Route::post('change-password', ['as' => 'admin.changepassword', 'uses' => 'Admin\AuthController@changePassword']);
     });
 
     Route::group(['middleware' => ['auth.sentinel']], function () {

@@ -15,8 +15,10 @@ use App\Exceptions\ValidationException;
 use App\Services\PostValidator;
 use App\Repositories\PostRepository;
 use App\Models\Post;
+use App\Models\Category;
 use View;
 use Log;
+use Illuminate\Support\Facades\Session;
 
 /**
  * Class PostController
@@ -48,12 +50,19 @@ class PostController extends Controller
     public function all(Request $request)
     {
         $posts = $this->postRepository->paginatedList($request);
+
+        //frontend data
+        $data = [
+            'posts'  => $posts,
+            'limit'  => (! empty($request->get('limit')))   ? $request->get('limit') : '10',
+            'sortBy' => (! empty($request->get('sortBy'))) ? $request->get('sortBy') : 'sortByDateDesc',
+        ];
+
+        if (Session::has('flash_message')) {
+           $data['flash_message'] = Session::get('flash_message');
+        }
         return View::make('admin.post.list')
-            ->with([
-                'posts'  => $posts,
-                'limit'  => (! empty($request->get('limit')))   ? $request->get('limit') : '10',
-                'sortBy' => (! empty($request->get('sortBy'))) ? $request->get('sortBy') : 'sortByDateDesc',
-            ]);
+            ->with($data);
     }
 
     /**
@@ -65,8 +74,12 @@ class PostController extends Controller
      */
     public function createAction()
     {
+        $categories = Category::get();
         return View::make('admin.post.create-update')
-            ->with('action', 'Create');
+            ->with([
+                'action'     => 'Create',
+                'categories' => $categories
+            ]);
     }
 
     /**
@@ -133,6 +146,8 @@ class PostController extends Controller
      */
     public function editAction($postId)
     {
+        $categories = Category::get();
+
         if (empty($postId)) {
             return View::make('admin.post.create-update')
                 ->with('action', 'Create');
@@ -140,16 +155,47 @@ class PostController extends Controller
 
         $blog = Post::find($postId);
         if (empty($blog)) {
-            if (empty($postId)) {
-                return View::make('admin.post.create-update')
-                    ->with('action', 'Create');
-            }
+            return View::make('admin.post.create-update')
+                ->with('action', 'Create');
         }
 
         return View::make('admin.post.create-update')
             ->with([
-                'action' => 'Edit',
-                'blog'   => $blog
+                'action'     => 'Edit',
+                'blog'       => $blog,
+                'categories' => $categories
             ]);
+    }
+
+    /**
+     * delete
+     *
+     * This deletes a post
+     *
+     * @param $postId
+     */
+    public function delete($postId)
+    {
+        try {
+            $this->postRepository->delete($postId);
+        } catch(\Exception $e) {
+            return Redirect::route('admin.post.list')
+                ->with([
+                        'flash_message' => [
+                            'status'  => 'error',
+                            'message' => 'There was a problem deleting the post.'
+                        ]
+                    ]
+                );
+        }
+
+        return Redirect::route('admin.post.list')
+            ->with([
+                'flash_message' => [
+                    'status'  => 'info',
+                    'message' => 'Post '.$postId.' was successfully deleted'
+                ]
+            ]
+        );
     }
 }

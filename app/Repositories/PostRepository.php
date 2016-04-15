@@ -37,7 +37,7 @@ class PostRepository
         /*
             sortByDateDesc
             sortByDateAsc
-            categoryName
+            sortByCategory
         */
         $posts  = Post::where('user_id', $user->id)
             ->with('category');
@@ -46,8 +46,8 @@ class PostRepository
             $posts->orderBy('created_at', 'desc');
         } elseif($sortBy == 'sortByDateAsc') {
             $posts->orderBy('created_at', 'asc');
-        } elseif($sortBy == 'category') {
-
+        } elseif($sortBy == 'sortByCategory') {
+            $posts->orderBy('category_id', 'asc');
         }
 
 
@@ -66,6 +66,9 @@ class PostRepository
      */
     public function createUpdate(Request $request)
     {
+        Log::error(__CLASS__ . ':' . __TRAIT__ . ':' . __FILE__ . ':' . __LINE__ . ':' . __FUNCTION__ . ':' .
+            'Create or update post.', ['request', $request->all()]);
+
         $data   = $request->except(['_url', '_token', 'uid']);
         $uid    = $request->get('uid');
         $postId = (! empty($data['post-id'])) ? $data['post-id'] : null;
@@ -84,7 +87,7 @@ class PostRepository
             if (empty($post)) {
                 throw new \Exception ('Post '. $postId . ' does not exist.');
             }
-            $post->status       = (isset($data['status']))  ? $data['status'] : Post::STATUS_DRAFT;
+            $post->status       = (! empty($data['status']))  ? $data['status'] : Post::STATUS_DRAFT;
         }
 
         //update stuff here
@@ -106,5 +109,28 @@ class PostRepository
         }
 
         return $post;
+    }
+
+    /**
+     * delete
+     *
+     * This deletes the post
+     *
+     * @param $postId
+     * @throws exception
+     */
+    public function delete($postId)
+    {
+        $post = Post::find($postId);
+        if (empty($post)) {
+            throw new \Exception ('Post '. $postId . ' does not exist.');
+        }
+        
+        try {
+            $post->delete();
+        } catch (\Exception $e) {
+            throw new \Exception($e->getMessage());
+        }
+
     }
 }

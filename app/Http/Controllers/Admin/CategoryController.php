@@ -16,6 +16,7 @@ use Log;
 use App\Services\CategoryValidator;
 use App\Exceptions\ValidationException;
 use App\Repositories\CategoryRepository;
+use App\Models\Category;
 
 /**
  * Class CategoryController
@@ -128,9 +129,23 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function editAction()
+    public function editAction($categoryId)
     {
+        if (empty($categoryId)) {
+            return View::make('admin.category.create-update')
+                ->with('action', 'Create');
+        }
+
+        $category = Category::find($categoryId);
+        if (empty($category)) {
+            return View::make('admin.category.create-update')
+                ->with('action', 'Create');
+        }
+
         return View::make('admin.category.create-update')
-            ->with('action', 'Edit');
+            ->with([
+                'category' => $category,
+                'action'   => 'Edit'
+            ]);
     }
 }

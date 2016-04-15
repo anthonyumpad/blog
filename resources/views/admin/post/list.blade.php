@@ -5,6 +5,7 @@
 @endsection
 
 @section('content')
+    @include('layouts/flash-message-session')
     <!-- Content Header (Page header) -->
     <section class="content-header">
         <div class="row">
@@ -73,7 +74,7 @@
                             @foreach($posts as $post)
                                 <tr>
                                     <td><a href="/admin/post/edit/{{ $post->id }}">{{ $post->title }}</a></td>
-                                    <td></td>
+                                    <td>@if(! empty($post->category->name)) {{ $post->category->name }} @endif</td>
                                     <td>{{ $post->description }}</td>
                                     <td class="date">{{ $post->created_at }}</td>
                                     <td>

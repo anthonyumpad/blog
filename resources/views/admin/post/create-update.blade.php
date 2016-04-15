@@ -27,7 +27,7 @@
                         <button type="button" id="publish" onClick="togglePublish('published')" class="btn btn-default btn-sm ladda-button" data-style="zoom-in" data-size="xs" data-spinner-color="#000000" @if($blog->status !== "draft") disabled="true" @endif ><i class="fa fa-share-square-o"></i> Publish</button>
                         <button type="button" id="unpublish" onClick="togglePublish('draft')" class="btn btn-default btn-sm ladda-button" data-style="zoom-in" data-size="xs" data-spinner-color="#000000" @if($blog->status !== "published") disabled="true" @endif ><i class="fa fa-file"></i> UnPublish</button>
                         <button type="button" id="preview" class="btn btn-default btn-sm ladda-button" data-style="zoom-in" data-size="xs" data-spinner-color="#000000"><i class="fa fa-newspaper-o"> </i> Preview</button>
-                        <button type="button" id="delete" class="btn btn-default btn-sm ladda-button" data-style="zoom-in" data-size="xs" data-spinner-color="#000000"><i class="fa fa-remove"> </i> Delete</button>
+                        <button type="button" id="delete" onClick="deletePost()" class="btn btn-default btn-sm ladda-button" data-style="zoom-in" data-size="xs" data-spinner-color="#000000"><i class="fa fa-remove"> </i> Delete</button>
                         <script>
                             var publishLadda = Ladda.create(document.querySelector( '#publish'));
                             var unpublishLadda = Ladda.create(document.querySelector( '#unpublish'));
@@ -72,6 +72,19 @@
                         </div>
                     </div>
                     <div class="box-body">
+                        <div class="form-group">
+                            <label for="title">Category</label>
+                            <select name="category_id" class="form-control">
+                                <option>Select a Category</option>
+                                @foreach($categories as $category)
+                                    @if(! empty($blog) && $blog->category_id == $category->id)
+                                        <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+                                    @else
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endif
+                                @endforeach
+                            </select>
+                        </div>
                         <div class="form-group">
                             <label for="title">Title</label>
                             <input type="text" class="form-control" id="title" name="title" @if(! empty($blog)) value="{{ $blog->title }}" @endif placeholder="Title">
@@ -181,6 +194,13 @@
             } );
         };
 
+        var deletePost = function() {
+            var url = "/admin/post/delete/" + $('#post-id').val();
+            startLaddas();
+            $('.overlay').show();
+            window.location.href = url;
+        };
+
         var togglePublish = function(newstatus) {
             $('#status').val(newstatus);
             savePost();
@@ -205,6 +225,8 @@
                 deleteLadda.stop();
             @endif
         };
+
+
 
         </script>
 @stop

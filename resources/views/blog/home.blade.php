@@ -19,10 +19,10 @@
 
                 @foreach($posts as $post)
                     <h2>
-                        <a href="/blog/{{ $username  }}/{{ $post->id }}">{{ $post->title }}</a>
+                        <a href="/blog/{{ $username  }}/post/{{ $post->id }}">{{ $post->title }}</a>
                     </h2>
                     <p class="lead">
-                        by <a href="index.php">{{ $username }}</a>
+                        by <a href="/blog/{{ $username }}">{{ $username }}</a>
                     </p>
                     <p>
                         <span class="glyphicon glyphicon-time"></span> Posted on <span class="date">{{ $post->created_at }}</span>
@@ -30,7 +30,7 @@
                             under {{ $post->category->name }}
                         @endif
                     </p>
-                    <p>{{ $post->description }}</p>
+                    <p>{!! $post->description !!}</p>
                     <a class="btn btn-primary" href="/blog/{{ $username }}/post/{{ $post->id }}">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
                 @endforeach
                 <hr>

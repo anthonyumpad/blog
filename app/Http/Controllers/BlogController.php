@@ -7,6 +7,8 @@ use App\Models\Category;
 use App\Models\Post;
 use Illuminate\Support\Facades\View;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\Log;
 
 class BlogController extends Controller
 {
@@ -42,6 +44,36 @@ class BlogController extends Controller
             ->with([
                 "username"   => $user->username,
                 "posts"      => $posts
+            ]);
+    }
+
+    /**
+     * getUserPost
+     *
+     * This fetches and displays the user's post
+     *
+     * @param $userName
+     * @param $postId
+     */
+    public function getUserPost($userName, $postId)
+    {
+        Log::error(__CLASS__ . ':' . __TRAIT__ . ':' . __FILE__ . ':' . __LINE__ . ':' . __FUNCTION__ . ':' .
+            'getUserPost', [
+                'username' => $userName,
+                'postId'   => $postId
+        ]);
+
+        $user = User::where('username', $userName)->first();
+        $post = Post::where('user_id', $user->id)
+                    ->where('_id', $postId)
+                    ->first();
+        if(empty($post)) {
+            App::abort(404);
+        }
+
+        return View::make('blog.post')
+            ->with([
+                "post" => $post
             ]);
     }
 }

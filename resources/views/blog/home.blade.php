@@ -13,7 +13,7 @@
                 </h1>
                 @else
                     <h3>
-                        Sorry, there are no posts under that category..
+                        Sorry, there are no posts here..
                     </h3>
                 @endif
 
@@ -31,7 +31,7 @@
                         @endif
                     </p>
                     <p>{{ $post->description }}</p>
-                    <a class="btn btn-prim  ary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
+                    <a class="btn btn-primary" href="/blog/{{ $username }}/post/{{ $post->id }}">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
                 @endforeach
                 <hr>
                 <div class="col-md-8">
@@ -41,18 +41,10 @@
             @include('/blog/layouts/rightnav')
         </div>
         <!-- /.row -->
-
         <hr>
         @include('/blog/layouts/footer')
     </div>
     <!-- /.container -->
 @endsection
 @section('footer')
-    <script>
-        var searchBlog = function() {
-            var search = $('#search').val();
-            var url = '/blog/{{ $username }}?search=' + search;
-            window.location.href = url;
-        };
-    </script>
 @stop

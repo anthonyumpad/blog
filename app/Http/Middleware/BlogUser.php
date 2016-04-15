@@ -31,6 +31,7 @@ class BlogUser
         }
         $categories = Category::where('user_id', $user->id)->get();
         View::share('categories', $categories);
+        View::share('username',   $user->username);
         return $next($request);
     }
 }

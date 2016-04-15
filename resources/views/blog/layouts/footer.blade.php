@@ -7,4 +7,11 @@
         <!-- /.col-lg-12 -->
     </div>
     <!-- /.row -->
+    <script>
+        var searchBlog = function() {
+            var search = $('#search').val();
+            var url = '/blog/{{ $username }}?search=' + search;
+            window.location.href = url;
+        };
+    </script>
 </footer>

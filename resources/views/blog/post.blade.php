@@ -5,19 +5,8 @@
 <div class="container">
 
     <div class="row">
-        <!-- Blog Column -->
+        <!-- Blog Entries Column -->
         <div class="col-md-8">
-            @if($posts->count() > 0)
-                <h1 class="page-header">
-                    Recent Posts
-                </h1>
-            @else
-                <h3>
-                    Sorry, there are no posts under that category..
-                </h3>
-            @endif
-
-            @foreach($posts as $post)
                 <h2>
                     <a href="/blog/{{ $username  }}/{{ $post->id }}">{{ $post->title }}</a>
                 </h2>
@@ -31,16 +20,10 @@
                     @endif
                 </p>
                 <p>{{ $post->description }}</p>
-                <a class="btn btn-primary" href="#">Read More <span class="glyphicon glyphicon-chevron-right"></span></a>
-            @endforeach
-            <hr>
-            <div class="col-md-8">
-                {!! $posts->render() !!}
-            </div>
+                <p>{{ $post->content }} </p>
         </div>
+        @include('/blog/layouts/rightnav')
     </div>
-    <!-- /.row -->
-
     <hr>
     @include('/blog/layouts/footer')
 </div>

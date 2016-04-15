@@ -10,5 +10,5 @@ use Cartalyst\Sentinel\Users\EloquentUser as CartalystUser;
 class User extends CartalystUser
 {
     protected $connection = 'mysql';
-    use Illuminate\Database\Eloquent\SoftDeletes;
+    use SoftDeletes;
 }

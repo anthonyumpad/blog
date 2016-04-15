@@ -12,6 +12,10 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Response;
 use Illuminate\Support\Facades\Redirect;
 use View;
+use Log;
+use App\Services\CategoryValidator;
+use App\Exceptions\ValidationException;
+use App\Repositories\CategoryRepository;
 
 /**
  * Class CategoryController
@@ -23,28 +27,98 @@ class CategoryController extends Controller
 {
 
     /**
+     * constructor
+     *
+     * Inject some dependency
+     */
+    public function __construct(CategoryValidator $categoryValidator, CategoryRepository $categoryRepository)
+    {
+        $this->categoryValidator  = $categoryValidator;
+        $this->categoryRepostory  = $categoryRepository;
+    }
+    /**
      * all
      *
      * This renders the categories index page
      *
      * @return \Illuminate\View\View
      */
-    public function all()
+    public function all(Request $request)
     {
-        return Response::view('admin.category.list');
+        $categories = $this->categoryRepostory->paginatedList($request);
+        return View::make('admin.category.list')
+            ->with([
+                'categories'  => $categories,
+                'limit'  => (! empty($request->get('limit')))   ? $request->get('limit') : 5,
+                'sortBy' => (! empty($request->get('sortBy'))) ? $request->get('sortBy') : 'sortByNameAsc',
+            ]);
     }
 
     /**
-     * create
+     * createAction
      *
      * This renders the category create page
      *
      * @return \Illuminate\View\View
      */
-    public function create()
+    public function createAction()
     {
         return View::make('admin.category.create-update')
             ->with('action', 'Create');
+    }
+
+    /**
+     * create
+     *
+     * This creates a new category
+     *
+     * @param Request $request
+     * @return View
+     */
+    public function create(Request $request)
+    {
+        try {
+            $this->categoryValidator->validate($request->all());
+        } catch (ValidationException $e) {
+            Log::error(__CLASS__ . ':' . __TRAIT__ . ':' . __FILE__ . ':' . __LINE__ . ':' . __FUNCTION__ . ':' .
+            'Create post validation exception.', ['exception', $e->get_errors()]);
+            return View::make('admin.category.create-update')
+                ->with([
+                    'flash_message' => [
+                        'status'  => 'error',
+                        'message' => $e->get_errors()
+                    ],
+                    'action' => 'Create'
+                ]);
+        } catch (\Exception $e) {
+            Log::error(__CLASS__ . ':' . __TRAIT__ . ':' . __FILE__ . ':' . __LINE__ . ':' . __FUNCTION__ . ':' .
+                'Create post  exception.', ['exception', $f->getMessage()]);
+            return View::make('admin.category.create-update')
+                ->with([
+                    'flash_message' => [
+                        'status'  => 'error',
+                        'message' => $e->getMessage()
+                    ],
+                    'action' => 'Create'
+                ]);
+        }
+
+        try {
+            $this->categoryRepostory->createUpdate($request);
+        } catch (\Exception $e) {
+            Log::error(__CLASS__ . ':' . __TRAIT__ . ':' . __FILE__ . ':' . __LINE__ . ':' . __FUNCTION__ . ':' .
+                'Create post  exception.', ['exception', $f->getMessage()]);
+            return View::make('admin.category.create-update')
+                ->with([
+                    'flash_message' => [
+                        'status'  => 'error',
+                        'message' => $e->getMessage()
+                    ],
+                    'action' => 'Create'
+                ]);
+        }
+
+        return Redirect::route('admin.category.list');
     }
 
     /**
@@ -54,7 +128,7 @@ class CategoryController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function edit()
+    public function editAction()
     {
         return View::make('admin.category.create-update')
             ->with('action', 'Edit');

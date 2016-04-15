@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+<!-----not in use at the moment----->
 <head>
 	<meta charset="utf-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -16,6 +17,12 @@
 	<![endif]-->
 	<script src="{{ asset ("/bower_components/admin-lte/plugins/jQueryUI/jquery-ui.min.js") }}"></script>
 	<link href="{{ asset('/css/blog-admin.css') }}" rel="stylesheet">
+	<!-- Ladda Themeless -->
+	<link href="{{ asset("/bower_components/ladda/dist/ladda-themeless.min.css") }}" rel="stylesheet">
+	<script src="{{ asset("/bower_components/ladda/js/spin.js") }}"></script>
+	<script src="{{ asset("/bower_components/ladda/js/ladda.js") }}"></script>
+	<link href="{{ asset('/css/blog-admin.css') }}" rel="stylesheet">
+
 </head>
 <body>
 	<nav class="navbar navbar-default">

@@ -46,7 +46,6 @@
             </div>
         @endif
 
-
         @if (Session::has('success-message'))
             <div class="centered text-center">
                 <p class="text-green">{{ Session::get('success-message') }}</p>

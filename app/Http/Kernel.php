@@ -51,5 +51,6 @@ class Kernel extends HttpKernel
         'guest'         => \App\Http\Middleware\RedirectIfAuthenticated::class,
         'throttle'      => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'auth.sentinel' => 'App\Http\Middleware\AuthenticateWithSentinel',
+        'bloguser'      => 'App\Http\Middleware\BlogUser',
     ];
 }

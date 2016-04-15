@@ -43,18 +43,14 @@ scratch. This page gets rid of all links and provides the needed markup only.
 </head>
 <body class="skin-blue sidebar-mini layout-boxed">
 <div class="wrapper">
-
 	<!-- Header -->
 	@include('layouts/header')
-
 	<!-- Sidebar -->
     @if (! empty($user))
 	    @include('layouts/sidebar')
     @else
         @include('layouts/sidebar-system')
     @endif
-
-
 	<!-- Content Wrapper. Contains page content -->
 	<div class="content-wrapper">
 		<!-- Main content -->

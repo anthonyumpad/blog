@@ -26,7 +26,7 @@
                     @if(! empty($blog))
                         <button type="button" id="publish" onClick="togglePublish('published')" class="btn btn-default btn-sm ladda-button" data-style="zoom-in" data-size="xs" data-spinner-color="#000000" @if($blog->status !== "draft") disabled="true" @endif ><i class="fa fa-share-square-o"></i> Publish</button>
                         <button type="button" id="unpublish" onClick="togglePublish('draft')" class="btn btn-default btn-sm ladda-button" data-style="zoom-in" data-size="xs" data-spinner-color="#000000" @if($blog->status !== "published") disabled="true" @endif ><i class="fa fa-file"></i> UnPublish</button>
-                        <button type="button" id="preview" class="btn btn-default btn-sm ladda-button" data-style="zoom-in" data-size="xs" data-spinner-color="#000000"><i class="fa fa-newspaper-o"> </i> Preview</button>
+                        <button type="button" id="preview" onClick="preview()" class="btn btn-default btn-sm ladda-button" data-style="zoom-in" data-size="xs" data-spinner-color="#000000"><i class="fa fa-newspaper-o"> </i> Preview</button>
                         <button type="button" id="delete" onClick="deletePost()" class="btn btn-default btn-sm ladda-button" data-style="zoom-in" data-size="xs" data-spinner-color="#000000"><i class="fa fa-remove"> </i> Delete</button>
                         <script>
                             var publishLadda = Ladda.create(document.querySelector( '#publish'));
@@ -205,6 +205,19 @@
         var togglePublish = function(newstatus) {
             $('#status').val(newstatus);
             savePost();
+        };
+
+        var preview = function() {
+           var url = "/blog/{{ $user->username }}/post/{{ $blog->id }}?preview=1";
+            var win = window.open(url, '_blank');
+            if(win){
+                //Browser has allowed it to be opened
+                win.focus();
+            }else{
+                //Broswer has blocked it
+                alert('Please allow popups for this site');
+            }
+
         };
 
         var startLaddas = function() {

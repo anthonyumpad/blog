@@ -55,8 +55,9 @@ class BlogController extends Controller
      * @param $userName
      * @param $postId
      */
-    public function getUserPost($userName, $postId)
+    public function getUserPost(Request $request, $userName, $postId)
     {
+        $preview = (! empty($request->get('preview'))) ? $request->get('preview') : false;
         Log::error(__CLASS__ . ':' . __TRAIT__ . ':' . __FILE__ . ':' . __LINE__ . ':' . __FUNCTION__ . ':' .
             'getUserPost', [
                 'username' => $userName,
@@ -65,8 +66,13 @@ class BlogController extends Controller
 
         $user = User::where('username', $userName)->first();
         $post = Post::where('user_id', $user->id)
-                    ->where('_id', $postId)
-                    ->first();
+                    ->where('_id', $postId);
+
+        if (! $preview) {
+              $post = $post->where('status', POST::STATUS_PUBLISHED);
+        }
+
+        $post = $post->first();
         if(empty($post)) {
             App::abort(404);
         }

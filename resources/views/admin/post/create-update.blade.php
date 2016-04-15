@@ -225,8 +225,5 @@
                 deleteLadda.stop();
             @endif
         };
-
-
-
         </script>
 @stop

@@ -88,7 +88,7 @@ class PostController extends Controller
      * This creates a new blog
      *
      * @param Request $request
-     * @return mixed
+     * @return Response $response
      */
     public function create(Request $request)
     {

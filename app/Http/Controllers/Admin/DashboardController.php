@@ -28,7 +28,7 @@ class DashboardController extends Controller
     /**
      * index
      *
-     * This creates the dashboard page
+     * This creates the admin dashboard page
      *
      * @return \Illuminate\View\View
      */

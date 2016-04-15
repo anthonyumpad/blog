@@ -21,7 +21,7 @@ class AuthController extends Controller
      * authenticate
      *
      * This performs admin authentication.
-     * This checks the role as to which group the user belongs to.
+     * This checks the role as to which group the user belongs to as well.
      *
      * @param Request $request
      * @throws Exception
@@ -49,7 +49,7 @@ class AuthController extends Controller
     /**
      * change Password
      *
-     * Update the user password
+     * Change the user's password
      *
      * @param Request $request
      * @return mixed

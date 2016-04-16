@@ -31,7 +31,10 @@
 <div class="login-box">
 
     <div class="login-box-body">
-        <p class="login-box-msg">Sign in to Blog Dashboard</p>
+        <div class="login-logo">
+            <a href="/"><img src="{{ asset("/img/blog.png") }}" width="200px" alt="" class="logo"/></a>
+        </div><!-- /.login-logo -->
+        <p class="login-box-msg">Sign in to Dashboard</p>
         @if(! empty(session('flash_message')))
             <div class="alert alert-{{ session('flash_message')['status'] }}">
                 <div class="layoutContainer">

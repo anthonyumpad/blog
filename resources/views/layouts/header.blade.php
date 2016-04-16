@@ -2,12 +2,12 @@
 <header class="main-header">
     <!-- Logo -->
     <a href="/admin/dashboard" class="logo">
-        <!--span class="logo-mini">
-            <img src="/img/logo2.svg"  class="dashboard-logo-mini"/>
+        <span class="logo-mini">
+            <img src="/img/b.png"  class="dashboard-logo-mini"/>
         </span>
         <span class="logo-lg">
-            <img src="/img/logo2.svg" width="200px" alt="" class="dashboard-logo"/>
-        </span-->
+            <img src="/img/blog_no_circle.png" width="200px" alt="" class="dashboard-logo"/>
+        </span>
     </a>
 
     <!-- Header Navbar -->

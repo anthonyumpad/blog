@@ -8,7 +8,7 @@ Route::group(['middlewareGroups' => ['web']], function () {
         Route::post('change-password', ['as' => 'admin.changepassword', 'uses' => 'Admin\AuthController@changePassword']);
     });
 
-    Route::group(['middleware' => ['auth.sentinel']], function () {
+    Route::group(['middleware' => ['auth.sentinel', 'isAdmin']], function () {
         /* admin routes*/
         Route::group(['prefix' => 'admin'], function () {
             Route::get('dashboard',    ['as' => 'admin.dashboard', 'uses' => 'Admin\DashboardController@index']);

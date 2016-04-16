@@ -31,11 +31,11 @@
                         <div class="box-body">
                             <div class="form-group">
                                 <label for="title">Name</label>
-                                <input type="text" class="form-control" id="name" name="name" placeholder="Category Name" @if(! empty($category))value="{{ $category->name }}"@endif>
+                                <input type="text" class="form-control" id="name" name="name" placeholder="Category Name" @if(! empty($category))value="{{ $category->name }}"@endif required>
                             </div>
                             <div class="form-group">
                                 <label for="title">Type</label>
-                                <select name="type" class="form-control">
+                                <select name="type" class="form-control" required>
                                     <option value="main">Main</option>
                                     <option value="post" selected>Post</option>
                                 </select>

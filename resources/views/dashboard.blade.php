@@ -46,10 +46,11 @@ scratch. This page gets rid of all links and provides the needed markup only.
 	<!-- Header -->
 	@include('layouts/header')
 	<!-- Sidebar -->
-    @if (! empty($user))
+
+    @if (isset($user) && $user->inRole('admin'))
 	    @include('layouts/sidebar')
-    @else
-        @include('layouts/sidebar-system')
+    @elseif(isset($user) && $user->inRole('superadmin'))
+        @include('layouts/sidebar-superadmin')
     @endif
 	<!-- Content Wrapper. Contains page content -->
 	<div class="content-wrapper">

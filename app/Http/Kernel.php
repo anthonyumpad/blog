@@ -52,5 +52,7 @@ class Kernel extends HttpKernel
         'throttle'      => \Illuminate\Routing\Middleware\ThrottleRequests::class,
         'auth.sentinel' => 'App\Http\Middleware\AuthenticateWithSentinel',
         'bloguser'      => 'App\Http\Middleware\BlogUser',
+        'isAdmin'       => 'App\Http\Middleware\AdminRoleCheck',
+        'isSuperAdmin'  => 'App\Http\Middleware\SuperAdminRoleCheck',
     ];
 }

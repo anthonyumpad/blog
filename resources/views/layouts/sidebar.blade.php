@@ -12,7 +12,7 @@
             </div>
         </form>
         <!-- /.search form -->
-
+        @if(isset($user) && $user->inRole('admin'))
         <!-- Sidebar Menu -->
         <ul class="sidebar-menu">
             <li class="header">General</li>
@@ -21,6 +21,7 @@
             <li id="categories-menu"><a href="/admin/category/list"><i class="fa fa-cubes"></i><span>Categories</span></a></li>
             <li id="posts-menu"><a href="/admin/post/list"><i class="fa fa-file-text-o"></i><span>Posts</span></a></li>
         </ul><!-- /.sidebar-menu -->
+        @endif
     </section>
     <!-- /.sidebar -->
 </aside>

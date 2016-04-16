@@ -43,7 +43,13 @@ class AuthController extends Controller
                 ]);
         }
 
-        return Redirect::route('admin.dashboard');
+        if ($auth->inRole('admin')) {
+            return Redirect::route('admin.dashboard');
+        }
+
+        if ($auth->inRole('superadmin')) {
+            return Redirect::route('superadmin.dashboard');
+        }
     }
 
     /**
@@ -61,7 +67,7 @@ class AuthController extends Controller
         $user = Sentinel::getUser();
         $credentials = [
             'email'     => $user->email,
-            'password'  => (!empty($params['currentPassword'])) ? $params['currentPassword'] : ''
+            'password'  => (! empty($params['currentPassword'])) ? $params['currentPassword'] : ''
         ];
         $re_auth_user = Sentinel::validateCredentials($user, $credentials);
 
@@ -73,8 +79,8 @@ class AuthController extends Controller
         }
 
         //check if new passwords match
-        $new_pass     = (!empty($params['newPassword']))    ? $params['newPassword'] : '';
-        $re_new_pass  = (!empty($params['re-newPassword'])) ? $params['re-newPassword'] : '';
+        $new_pass     = (! empty($params['newPassword']))    ? $params['newPassword'] : '';
+        $re_new_pass  = (! empty($params['re-newPassword'])) ? $params['re-newPassword'] : '';
         if ($new_pass != $re_new_pass) {
             return Redirect::back()->with([
                 'passwordErrors'   => 'New passwords does not match'

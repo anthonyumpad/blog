@@ -34,22 +34,27 @@ class UsersSeeder extends Seeder
         }
 
         $superAdmin = Sentinel::registerAndActivate([
-            'username'          => 'SuperAdmin',
-            "uid"               => Uuid::generate(4),
-            "email"             => 'anthonyumpad+blogsuperadmin@gmail.com',
+            "email"             => 'shinigamitonio@gmail.com',
             "password"          => "password",
-            "first_name"        => 'Super',
-            "last_name"         => 'Admin',
         ]);
 
+        $superAdmin->username   = 'SuperAdmin';
+        $superAdmin->uid        = Uuid::generate(4);
+        $superAdmin->first_name = 'Super';
+        $superAdmin->last_name  = 'Admin';
+        $superAdmin->save();
+
+
         $admin = Sentinel::registerAndActivate([
-            'username'          => 'anthonyBlogAdmin',
-            "uid"               => Uuid::generate(4),
             "email"             => 'anthonyumpad+blogAdmin@gmail.com',
             "password"          => "password",
-            "first_name"        => 'Anthony',
-            "last_name"         => 'Blogger',
         ]);
+
+        $admin->username   = 'anthonyBlogAdmin';
+        $admin->uid        = Uuid::generate(4);
+        $admin->first_name = 'Anthony';
+        $admin->last_name  = 'Blogger';
+        $admin->save();
 
         $superAdmin->roles()->attach($superAdminRole);
         $admin->roles()->attach($adminRole);

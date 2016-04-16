@@ -11,26 +11,17 @@
                 </span>
             </div>
         </form>
-        <!-- /.search form -->
-        @if(isset($user) && $user->inRole('admin'))
-            <!-- Sidebar Menu -->
-            <ul class="sidebar-menu">
-                <li class="header">General</li>
-                <!-- Optionally, you can add icons to the links -->
-                <li id="dashboard-menu"><a href="/admin/dashboard"><i class="fa fa-dashboard"></i><span>Dashboard</span></a></li>
-                <li id="categories-menu"><a href="/admin/category/list"><i class="fa fa-cubes"></i><span>Categories</span></a></li>
-                <li id="posts-menu"><a href="/admin/post/list"><i class="fa fa-file-text-o"></i><span>Posts</span></a></li>
-            </ul><!-- /.sidebar-menu -->
-        @endif
         @if(isset($user) && $user->inRole('superadmin'))
             <!-- Sidebar Menu -->
             <ul class="sidebar-menu">
                 <li class="header">General</li>
                 <!-- Optionally, you can add icons to the links -->
                 <li id="dashboard-menu"><a href="/superadmin/dashboard"><i class="fa fa-dashboard"></i><span>Dashboard</span></a></li>
-                <li id="categories-menu"><a href="/superadmin/user/list"><i class="fa fa-cubes"></i><span>Categories</span></a></li>
+                <li id="categories-menu"><a href="/superadmin/user/list"><i class="fa fa-users"></i><span>Users</span></a></li>
+
             </ul><!-- /.sidebar-menu -->
         @endif
+
     </section>
     <!-- /.sidebar -->
 </aside>

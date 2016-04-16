@@ -1,6 +1,6 @@
 # Blog
 
-This is a blog application that is using 2 databases, MySQL and MongoDB. This has three different interfaces -- superadmin, admin
+This is a blog application that users 2 databases, MySQL and MongoDB. This has three different interfaces -- superadmin, admin
 and the public interface. The superamin allows the adding/editing or users. The admin interface allows the blog admin to add, edit, delete, preview, publish and unpublish his post.
 It also allows the admin to add different blog categories. The public interface is the blog page for public viewing of the admin's posts.
 
@@ -10,6 +10,7 @@ Please make sure you have installed the following:
 
 - PHP 5.5.9 and above
 - MySQL 5.6 and above
+- Laravel 5.2
 - Memcached (or change the session to use file)
 - MongoDB 3.2
 - Bower
@@ -22,7 +23,7 @@ Please make sure you have installed the following:
 4. Run `bower install`
 5. Setup the MySQL db, add your preferred database name and update the .env file.
 6. Run the migrations.
-7. Run the seeders. (You can add or remove sandbox account by editing the seeder file)
+7. Run the seeders. (You can add or remove sandbox accounts by editing the seeder file)
 8. Done.
 
 ## Main Routes

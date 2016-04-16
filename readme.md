@@ -1,7 +1,7 @@
 # Blog
 
-This is a blog application that is using 2 databases, MySQL and MongoDB. This has two different interfaces -- the admin
-and the public interface. The admin interface allows the blog admin to add, edit, delete, preview, publish and unpublish his post.
+This is a blog application that is using 2 databases, MySQL and MongoDB. This has three different interfaces -- superadmin, admin
+and the public interface. The superamin allows the adding/editing or users. The admin interface allows the blog admin to add, edit, delete, preview, publish and unpublish his post.
 It also allows the admin to add different blog categories. The public interface is the blog page for public viewing of the admin's posts.
 
 ## Pre-requisites

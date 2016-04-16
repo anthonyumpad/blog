@@ -7,9 +7,10 @@ Route::group(['middlewareGroups' => ['web']], function () {
 
             /* superadmin user routes */
             Route::group(['prefix' => 'user'], function () {
-                Route::get('list',     ['as' => 'superadmin.user.get.list',    'uses' => 'SuperAdmin\UserController@all']);
-                Route::get('create',   ['as' => 'superadmin.user.get.create',  'uses' => 'SuperAdmin\UserController@createAction']);
-                Route::post('create',  ['as' => 'superadmin.user.post.create', 'uses' => 'SuperAdmin\UserController@create']);
+                Route::get('list',       ['as' => 'superadmin.user.get.list',    'uses' => 'SuperAdmin\UserController@all']);
+                Route::get('create',     ['as' => 'superadmin.user.get.create',  'uses' => 'SuperAdmin\UserController@createAction']);
+                Route::post('create',    ['as' => 'superadmin.user.post.create', 'uses' => 'SuperAdmin\UserController@create']);
+                Route::get('edit/{uid}', ['as' => 'superadmin.user.get.edit',    'uses' => 'SuperAdmin\UserController@editAction']);
             });
 
         });

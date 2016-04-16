@@ -33,7 +33,7 @@
                                 <div class="col-md-6">
                                     <div class="form-group">
                                         <label for="username">Username</label>
-                                        <input type="text" class="form-control" id="username" name="username" placeholder="User Name" @if(! empty($blogUser))value="{{ $blogUser->name }}" @else value="{{ Input::old('username') }}" @endif>
+                                        <input type="text" class="form-control" id="username" name="username" placeholder="User Name" @if(! empty($blogUser))value="{{ $blogUser->username }}" @else value="{{ Input::old('username') }}" @endif>
                                     </div>
                                 </div>
                                 <div class="col-md-6">

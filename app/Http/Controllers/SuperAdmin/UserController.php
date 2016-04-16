@@ -87,10 +87,22 @@ class UserController extends Controller
      *
      * @return \Illuminate\View\View
      */
-    public function editAction()
+    public function editAction($userUid)
     {
+        $editUser = User::with('roles')
+            ->where('uid', $userUid)
+            ->first();
+
+        if (empty($editUser)) {
+            return View::make('superadmin.user.create-update')
+                ->with('action', 'Create');
+        }
+
         return View::make('superadmin.user.create-update')
-            ->with('action', 'Edit');
+            ->with([
+                'blogUser' => $editUser,
+                'action'   =>'Edit'
+            ]);
     }
 
     /**
@@ -134,7 +146,7 @@ class UserController extends Controller
         return Redirect::route('superadmin.user.get.list')
             ->with('flash_message', [
             'status'  => 'success',
-            'message' => 'User '. $request->get('username') .' was successfully added.'
+            'message' => 'User '. $request->get('username') .' was successfully added/updated.'
          ]);
     }
 }

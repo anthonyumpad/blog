@@ -19,4 +19,14 @@ class User extends CartalystUser
         'password',
     ];
     use SoftDeletes;
+
+    /**
+     * Returns the roles relationship.
+     *
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function roles()
+    {
+        return $this->belongsToMany('Cartalyst\Sentinel\Roles\EloquentRole', 'role_users', 'user_id', 'role_id')->withTimestamps();
+    }
 }

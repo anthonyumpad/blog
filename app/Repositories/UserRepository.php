@@ -33,20 +33,18 @@ class UserRepository
     {
         $limit  = (! empty($request->get('limit')))  ? $request->get('limit')  : 10;
         $sortBy = (! empty($request->get('sortBy'))) ? $request->get('sortBy') : '';
+        $users  = User::with('roles');
         /*
             sortByDateDesc
             sortByDateAsc
             sortByUserName
         */
         if ($sortBy == 'sortByDateDesc') {
-            $users = User::orderBy('created_at', 'desc');
+            $users->orderBy('created_at', 'desc');
         } elseif($sortBy == 'sortByDateAsc') {
-            $users = User::orderBy('created_at', 'asc');
+            $users->orderBy('created_at', 'asc');
         } elseif($sortBy == 'sortByUserName') {
-            $users = User::orderBy('username', 'asc');
-        } else {
-            $users = User::paginate((int) $limit);
-            return $users;
+            $users->orderBy('username', 'asc');
         }
 
         $users = $users->paginate((int) $limit);
@@ -110,7 +108,7 @@ class UserRepository
             throw new \Exception('User record not found');
         }
 
-        $credentials = [
+        $newCredentials = [
             'email'     => $existingUser->email,
             'password'  => (! empty($input['password'])) ? $input['password'] : 'password'
         ];
@@ -125,7 +123,7 @@ class UserRepository
         }
 
         try {
-            $user = Sentinel::update($existingUser, $new_credentials);
+            $user = Sentinel::update($existingUser, $newCredentials);
         } catch(\Exception $e) {
             throw new \Exception($e->getMessage());
         }

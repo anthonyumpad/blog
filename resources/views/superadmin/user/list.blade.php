@@ -58,18 +58,18 @@
                         <table class="table no-margin bg-white">
                             <thead>
                             <tr>
-                                <th>Uid</th>
                                 <th>Username</th>
                                 <th>Email</th>
+                                <th>Type</th>
                                 <th>Created Date</th>
                             </tr>
                             </thead>
                             <tbody>
                             @foreach($users as $adminuser)
                                 <tr>
-                                    <td><a href="/superadmin/user/edit/{{ $adminuser->uid }}">{{ $adminuser->uid }}</a></td>
-                                    <td>{{ $adminuser->username }}</td>
+                                    <td><a href="/superadmin/user/edit/{{ $adminuser->uid }}">{{ $adminuser->username }}</a></td>
                                     <td>{{ $adminuser->email }}</td>
+                                    <td>{{ $adminuser->roles[0]->slug }}</td>
                                     <td class="date">{{ $adminuser->created_at }}</td>
                                 </tr>
                             @endforeach

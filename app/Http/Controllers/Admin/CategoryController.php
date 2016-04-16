@@ -17,6 +17,7 @@ use App\Services\CategoryValidator;
 use App\Exceptions\ValidationException;
 use App\Repositories\CategoryRepository;
 use App\Models\Category;
+use Illuminate\Support\Facades\Session;
 
 /**
  * Class CategoryController
@@ -47,12 +48,18 @@ class CategoryController extends Controller
     public function all(Request $request)
     {
         $categories = $this->categoryRepostory->paginatedList($request);
+        $data = [
+            'categories'  => $categories,
+            'limit'  => (! empty($request->get('limit')))   ? $request->get('limit') : 5,
+            'sortBy' => (! empty($request->get('sortBy'))) ? $request->get('sortBy') : 'sortByNameAsc',
+        ];
+
+        if (Session::has('flash_message')) {
+            $data['flash_message'] = Session::get('flash_message');
+        }
+
         return View::make('admin.category.list')
-            ->with([
-                'categories'  => $categories,
-                'limit'  => (! empty($request->get('limit')))   ? $request->get('limit') : 5,
-                'sortBy' => (! empty($request->get('sortBy'))) ? $request->get('sortBy') : 'sortByNameAsc',
-            ]);
+            ->with($data);
     }
 
     /**
@@ -119,7 +126,10 @@ class CategoryController extends Controller
                 ]);
         }
 
-        return Redirect::route('admin.category.list');
+        return Redirect::route('admin.category.list')->with('flash_message', [
+            'status'  => 'success',
+            'message' => 'Category '. $request->get('name') .' was successfully added/updated.'
+        ]);
     }
 
     /**

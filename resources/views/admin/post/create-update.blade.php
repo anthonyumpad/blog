@@ -54,7 +54,7 @@
                             </div>
                             <div class="col-md-1 pull-right">
                                 <div class="box-tools">
-                                    <button type="button" class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
+                                    <button type="button" id='header-collapse' class="btn btn-box-tool" data-widget="collapse"><i class="fa fa-minus"></i></button>
                                 </div>
                             </div>
                             <div class="col-md-1 pull-right">
@@ -72,30 +72,44 @@
                         </div>
                     </div>
                     <div class="box-body">
-                        <div class="form-group">
-                            <label for="title">Category</label>
-                            <select name="category_id" class="form-control">
-                                <option>Select a Category</option>
-                                @foreach($categories as $category)
-                                    @if(! empty($blog) && $blog->category_id == $category->id)
-                                        <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
-                                    @else
-                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endif
-                                @endforeach
-                            </select>
+                        <div class="row">
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="title">Category</label>
+                                    <select name="category_id" class="form-control">
+                                        <option>Select a Category</option>
+                                        @foreach($categories as $category)
+                                            @if(! empty($blog) && $blog->category_id == $category->id)
+                                                <option value="{{ $category->id }}" selected>{{ $category->name }}</option>
+                                            @else
+                                                <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                            @endif
+                                        @endforeach
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label for="tags">Tags</label>
+                                    <input type="text" class="form-control" id="tags" name="tags" placeholder="Tags" @if(! empty($blog)) value="{{ $blog->tags }}"@endif>
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="title">Title</label>
-                            <input type="text" class="form-control" id="title" name="title" @if(! empty($blog)) value="{{ $blog->title }}" @endif placeholder="Title">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="title">Title</label>
+                                    <input type="text" class="form-control" id="title" name="title" @if(! empty($blog)) value="{{ $blog->title }}" @endif placeholder="Title">
+                                </div>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <label for="description">Description</label>
-                            <textarea class="form-control ckeditor" id="description" rows=10 name="description" placeholder="Description">@if(! empty($blog)){{ $blog->description }}@endif</textarea>
-                        </div>
-                        <div class="form-group">
-                            <label for="tags">Tags</label>
-                            <input type="text" class="form-control" id="tags" name="tags" placeholder="Tags" @if(! empty($blog)) value="{{ $blog->tags }}"@endif>
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <div class="form-group">
+                                    <label for="description">Description</label>
+                                    <textarea class="form-control ckeditor" id="description" rows=3 name="description" placeholder="Description">@if(! empty($blog)){{ $blog->description }}@endif</textarea>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <!-- /.box-body -->
@@ -148,8 +162,17 @@
             CKEDITOR.replace('description');
         });
 
-        CKEDITOR.on( 'instanceReady', function(){
+        CKEDITOR.on( 'instanceReady', function(evt){
+            var editor = evt.editor;
             $("textarea.ckeditor").cke_resize();
+
+            editor.on('focus', function(e) {
+                if(e.editor.name == 'content') {
+                    console.log('content');
+                    $('.sidebar-toggle').click();
+                    $('#header-collapse').click();
+                }
+            });
         });
 
         var savePost = function() {
